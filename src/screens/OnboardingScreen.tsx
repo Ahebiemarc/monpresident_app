@@ -1,11 +1,12 @@
 import React, { useRef } from "react";
 import { StatusBar, Animated, Text, Image, View, StyleSheet, Dimensions, FlatList, NativeSyntheticEvent, NativeScrollEvent, } from 'react-native';
-import { Colors } from "../constants/colors/colors";
+import { Colors } from "../constants/colors/Colors";
 import { DATA_ONBOARDING } from "../constants/data/data";
 import Indicator from "../components/Indicator";
 import Backdrop from "../components/Backdrop";
 import Square from "../components/Square";
 import Button from "../components/Button";
+import { RootStackScreenProps } from "../types/navigation/types";
 
 
 const { width, height } = Dimensions.get('screen');
@@ -14,7 +15,7 @@ const { width, height } = Dimensions.get('screen');
 
 
 
-const OnboardingScreen = (): React.JSX.Element => {
+const OnboardingScreen = ({navigation}: RootStackScreenProps<'Onboarding'>): React.JSX.Element => {
 
     const scrollX = useRef<Animated.Value>(new Animated.Value(0)).current;
 
@@ -62,6 +63,7 @@ const OnboardingScreen = (): React.JSX.Element => {
                 paddingH={40}
                 paddingV={19}
                 left={-30}
+                onPress={() => navigation.replace('Tab', {screen: 'PostPr'})}
                 />
                  <Button 
                 title="S'inscrire" 

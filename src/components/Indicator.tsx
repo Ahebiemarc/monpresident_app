@@ -1,9 +1,10 @@
 import React from "react";
 import { DATA_ONBOARDING } from "../constants/data/data";
 import { Animated, Dimensions, View } from "react-native";
-import { Colors } from "../constants/colors/colors";
+import { Colors } from "../constants/colors/Colors";
+import { SCREEN_WIDTH } from "../constants/Constants";
 
-const { width, height } = Dimensions.get('screen');
+const width = SCREEN_WIDTH;
 
 
 const Indicator = ({scrollX}:{scrollX :Animated.Value}): React.JSX.Element => { 

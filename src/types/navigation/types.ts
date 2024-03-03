@@ -28,8 +28,8 @@ export type RootStackScreenProps<T extends keyof RootStackParamList> =
 
 // définition des paramètres de route possibles pour les onglets dans l'écran d'accueil
 export type TabParamList = {
-    PostPr: undefined;
-    Pofile: undefined;
+    Home: undefined;
+    Profile: undefined;
     About: undefined;
     Settings: undefined;
 };

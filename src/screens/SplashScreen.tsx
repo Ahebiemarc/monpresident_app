@@ -6,9 +6,8 @@ import { RootStackScreenProps } from "../types/navigation/types";
 
 const { width, height } = Dimensions.get("screen");
 
-type SplashScreenProps =  RootStackScreenProps<'Splash'>
 
-const SplashScreen = ({navigation}: SplashScreenProps): React.JSX.Element => {
+const SplashScreen = ({navigation}: RootStackScreenProps<'Splash'>): React.JSX.Element => {
     return(
         <View style={styles.container} >
             <StatusBar hidden />

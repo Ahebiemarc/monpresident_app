@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Colors } from "../constants/colors/colors";
+import { Colors } from "../constants/colors/Colors";
 import { IButton } from "../interfaces/interfaces";
 
 const Button = (props: IButton) : React.JSX.Element => {
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
       color: Colors.black,
       fontSize: 16,
       fontFamily: "Poppins-Medium",
+      letterSpacing: 2.0
     },
 });
 

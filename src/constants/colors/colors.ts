@@ -9,4 +9,8 @@ export const Colors = {
     yellow: "#F2B617",
     blueDark: "#254A8E",
     whiteDark: "#efefef",
+    colorOnclick: "#fcb37b",
+    blackLight: "rgba(128,128,128,0.8)",
+    BACKGROUND_STROKE_COLOR: '#E7E7E7',
+    STROKE_COLOR: '#A6E1FA',
 }
