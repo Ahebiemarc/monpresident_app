@@ -1,3 +1,5 @@
+import { ImageProps } from "react-native";
+
 export interface IOnboardingSlide {
     key: string;
     title: string;
@@ -26,8 +28,8 @@ export interface IPresident {
     occupation: string;
     brefSpeechAndBio: string;
     matchPercent: number;
-    image: string;
-    coveredImage: string;
+    image: ImageProps;
+    coveredImage: ImageProps;
     address?: string;
     city?: string;
     state?: string;

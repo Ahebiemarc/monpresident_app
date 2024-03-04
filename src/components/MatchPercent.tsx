@@ -6,8 +6,11 @@ import CircularProgressBar from "./CircularProgressBar";
 const height = 100;
 const width = 250;
 
+type MatchPercentProps = {
+  percent: number
+}
 
-const MatchPercent= () => {
+const MatchPercent= (props : MatchPercentProps) => {
 
   return (
     <View style={styles.container}>
@@ -20,6 +23,7 @@ const MatchPercent= () => {
             bg_stroke_color={Colors.BACKGROUND_STROKE_COLOR}
             bg_fill_color={Colors.white}
             stroke_color={Colors.STROKE_COLOR}
+            percent={props.percent}
           />
         </View>
         <View >
@@ -51,7 +55,6 @@ const styles = StyleSheet.create({
     justifyContent:'space-around',
     alignItems: 'center',
     paddingHorizontal: 10,
-    paddingVertical: 5,
     paddingRight : 25,
   },
   matchPercentContainer: {

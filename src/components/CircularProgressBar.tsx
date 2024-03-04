@@ -4,22 +4,15 @@ import { Colors } from "../constants/colors/Colors";
 import { Circle, Svg } from "react-native-svg";
 import Animated, { useAnimatedProps, useDerivedValue, useSharedValue, withTiming } from "react-native-reanimated";
 import { ReText } from "react-native-redash";
+import { CircularProgressBarProps } from "../types/types";
 
 
 
-const BACKGROUND_STROKE_COLOR = '#303858';
-const STROKE_COLOR = '#A6E1FA';
 
 const CIRCLE_LENGTH = 110; // 2PI*R
 const R = CIRCLE_LENGTH / (2 * Math.PI);
 
-type CircularProgressBarProps = {
-    positionX: number;
-    positionY: number;
-    bg_stroke_color?: string;
-    stroke_color?: string;
-    bg_fill_color?: string;
-};
+
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
@@ -28,7 +21,7 @@ const CircularProgressBar = (props : CircularProgressBarProps ) : React.JSX.Elem
     const progress = useSharedValue(0)
 
     useEffect(() => {
-            progress.value = withTiming(0.5, { duration: 2000 });
+            progress.value = withTiming((props.percent  / 100) , { duration: 2000 });
     }, [progress]);
 
     const AnimatedProps = useAnimatedProps(() => ({

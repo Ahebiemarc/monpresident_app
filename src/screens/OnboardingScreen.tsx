@@ -60,10 +60,10 @@ const OnboardingScreen = ({navigation}: RootStackScreenProps<'Onboarding'>): Rea
             <Button 
                 title="Se connecter" 
                 color={Colors.white} 
-                paddingH={40}
+                paddingH={30}
                 paddingV={19}
-                left={-30}
-                onPress={() => navigation.replace('Tab', {screen: 'PostPr'})}
+                left={-20}
+                onPress={() => navigation.replace('Tab', {screen: 'Home'})}
                 />
                  <Button 
                 title="S'inscrire" 

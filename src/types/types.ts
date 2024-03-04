@@ -19,6 +19,15 @@ export type TabProps = {
     onTabPress: () => void;
 };
 
+export type CircularProgressBarProps = {
+    positionX: number;
+    positionY: number;
+    bg_stroke_color?: string;
+    stroke_color?: string;
+    bg_fill_color?: string;
+    percent: number;
+};
+
 
 
 
