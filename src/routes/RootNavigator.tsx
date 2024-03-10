@@ -6,6 +6,7 @@ import Login from "../screens/Login";
 import Signup from "../screens/Signup";
 import TabNavigator from "./TabNavigator";
 import { View } from "react-native";
+import PresidentInfo from "../screens/PresidentInfo";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -24,6 +25,7 @@ const RootNavigator = () => {
                 <RootStack.Screen name="Login" component={Login} />
                 <RootStack.Screen name="Signup" component={Signup} />
                 <RootStack.Screen name="Tab" component={TabNavigator} />
+                <RootStack.Screen name="PresidentInfo" component={PresidentInfo} />
             </RootStack.Group>
         </RootStack.Navigator>
         </View>

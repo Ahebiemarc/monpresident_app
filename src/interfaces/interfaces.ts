@@ -1,4 +1,7 @@
 import { ImageProps } from "react-native";
+import { BottomSheetProps } from '@gorhom/bottom-sheet';
+import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+
 
 export interface IOnboardingSlide {
     key: string;
@@ -15,6 +18,31 @@ export interface IButton{
     right?: number;
     left?: number;
     onPress?: () => void;
+};
+
+export interface IOccupation{
+    id: string;
+    occupation: string;
+    societyName: string;
+    date: string;
+    logo: ImageProps;
+
+};
+
+export interface IEducation {
+    id: string;
+    nameOfschool: string;
+    city: string;
+    date: string;
+    logo: ImageProps;
+}
+
+export interface IExperience {
+    id: string;
+    SocietyName: string;
+    date: string;
+    logo: ImageProps;
+    yearOfexprience: number;
 }
 
 export interface IPresident {
@@ -25,14 +53,15 @@ export interface IPresident {
     gender: string;
     email: string;
     politicalStatus: 'INDEPENDANT' | 'DEMOCRATE' | 'REPUBLICAIN',
-    occupation: string;
     brefSpeechAndBio: string;
     matchPercent: number;
     image: ImageProps;
     coveredImage: ImageProps;
-    address?: string;
-    city?: string;
-    state?: string;
+    address: string;
+    city: string;
+    state: string;
+    aboutPresident: IPresidentAbout;
+    
 };
 
 export interface IMatched {
@@ -67,31 +96,26 @@ export interface IPresidentProject {
     title: string;
     theme: IThemeProject
     description: string;
-    presidentID: IPresident;
+    images?: Array<ImageProps>;
 };
 
 
-export interface IEducation {
-    id: string;
-    logo: string;
-    name: string;
-    date: string;
-    presidentID: IPresident;
-
-}
-export interface IExperience {
-    id: string;
-    logo: string;
-    SocietyName: string;
-    date: string;
-    presidentID: IPresident;
-
-}
 export interface IPresidentAbout {
     id: string;
     education: Array<IEducation>;
     experience: Array<IExperience>;
+    occupation: Array<IOccupation>;
     projects: Array<IPresidentProject>;
-    presidentID: IPresident;
 
+};
+
+
+
+export interface IBottomSheetPropsWithIndexChange extends BottomSheetProps {
+  onChangeIndex?: (newIndex: number) => void;
+  ref?: React.RefObject<BottomSheetMethods>;
 }
+
+
+
+

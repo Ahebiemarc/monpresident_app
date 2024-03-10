@@ -17,10 +17,10 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import SplashScreen from './src/screens/SplashScreen';
-import OnboardingScreen from './src/screens/OnboardingScreen';
 import RootNavigator from './src/routes/RootNavigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 
 
@@ -30,15 +30,15 @@ function App(): React.JSX.Element {
 
 
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <BottomSheetModalProvider>
 
-        <View style={{flex:1,}}>
-          <RootNavigator />
-        </View>
-      </NavigationContainer>
-    </SafeAreaProvider>
-    
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
+        
   );
 }
 

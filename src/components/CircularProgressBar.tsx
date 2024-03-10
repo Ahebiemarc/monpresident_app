@@ -21,8 +21,15 @@ const CircularProgressBar = (props : CircularProgressBarProps ) : React.JSX.Elem
     const progress = useSharedValue(0)
 
     useEffect(() => {
-            progress.value = withTiming((props.percent  / 100) , { duration: 2000 });
-    }, [progress]);
+        progress.value = withTiming((props.percent  / 100) , { duration: 2000 });
+
+    
+
+        // Retour de la fonction de nettoyage pour annuler l'animation lorsque le composant est démonté
+        return () => {
+            progress.value = withTiming((0) , { duration: 0 });;
+        }
+    }, [props.percent]);
 
     const AnimatedProps = useAnimatedProps(() => ({
         strokeDashoffset: CIRCLE_LENGTH * (1 - progress.value),

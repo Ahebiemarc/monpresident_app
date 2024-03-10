@@ -1,6 +1,7 @@
 import { CompositeScreenProps, NavigatorScreenParams } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { IPresident, IPresidentAbout } from "../../interfaces/interfaces";
 
 
 
@@ -11,7 +12,7 @@ export type RootStackParamList = {
   Onboarding: undefined;
   Login: undefined;
   Signup: undefined;
-  PostPr_Details: undefined;
+  PresidentInfo: {item: IPresident};
 };
 
 /**

@@ -12,8 +12,8 @@ const bgs = [Colors.blueLight, Colors.kaki, Colors.blueDark];
 const Backdrop = ({scrollX}:{scrollX :Animated.Value}): React.JSX.Element => {
 
     const backgroundColor = scrollX.interpolate({
-        inputRange: bgs.map((_, index) => index * width ),
-        outputRange: bgs.map(bg => bg),
+        inputRange: bgs.map((_, index) => index * width),
+        outputRange: bgs.map(bg => bg ),
     })
     return(
         <Animated.View 

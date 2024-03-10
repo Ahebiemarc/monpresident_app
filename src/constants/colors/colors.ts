@@ -13,4 +13,6 @@ export const Colors = {
     blackLight: "rgba(128,128,128,0.8)",
     BACKGROUND_STROKE_COLOR: '#E7E7E7',
     STROKE_COLOR: '#A6E1FA',
+    witheOpacity: 'rgba(255, 255, 255, 0.8)',
+    darkOpacity: 'rgba(0, 0, 0, 0.8)',
 }

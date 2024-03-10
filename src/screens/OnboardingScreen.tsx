@@ -33,6 +33,7 @@ const OnboardingScreen = ({navigation}: RootStackScreenProps<'Onboarding'>): Rea
                 data={DATA_ONBOARDING}
                 horizontal
                 scrollEventThrottle={32}
+                bounces={false}
                 onScroll={handleScroll}
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.contentContainer}
