@@ -1,4 +1,4 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/navigation/types";
 import SplashScreen from "../screens/SplashScreen";
 import OnboardingScreen from "../screens/OnboardingScreen";
@@ -9,7 +9,7 @@ import { View } from "react-native";
 import PresidentInfo from "../screens/PresidentInfo";
 import PresidentAbout from "../screens/PresidentAbout";
 
-const RootStack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
     return (
@@ -26,10 +26,8 @@ const RootNavigator = () => {
                 <RootStack.Screen name="Login" component={Login} />
                 <RootStack.Screen name="Signup" component={Signup} />
                 <RootStack.Screen name="Tab" component={TabNavigator} />
-                <RootStack.Screen name="PresidentInfo" component={PresidentInfo}
-                    options={{ animation: "fade"}}
-                 />
-                <RootStack.Screen name="PresidentAbout" component={PresidentAbout} />
+                <RootStack.Screen name="PresidentInfo" component={PresidentInfo}/>
+                <RootStack.Screen name='PresidentAbout' component={PresidentAbout} />
             </RootStack.Group>
         </RootStack.Navigator>
         </View>

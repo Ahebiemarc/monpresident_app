@@ -4,13 +4,14 @@ import { RootStackScreenProps } from "../types/navigation/types";
 import Feather from "react-native-vector-icons/Feather"
 import { Colors } from "../constants/colors/Colors";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../constants/Constants";
-import { ITEM_SIZE, transitionBg } from "./tabs/Home";
+import { ITEM_SIZE } from "./tabs/Home";
 import MatchPercent from "../components/MatchPercent";
 import BottomBlue from "../components/bottomBlue";
 
 import * as Animatable from "react-native-animatable";
 import Animated, { FadeInUp } from "react-native-reanimated";
 import ButtonVoteMe from "../components/ButtonVoteMe";
+import { SharedElement } from "react-navigation-shared-element";
 
 
 const SPACING:number = 10;
@@ -37,7 +38,7 @@ const PresidentInfo = ({route, navigation} : RootStackScreenProps<'PresidentInfo
                                   
             />
             </TouchableOpacity>
-            <Animated.View  
+            <View  
                 style={[StyleSheet.absoluteFillObject,
                     {
                         backgroundColor: "rgba(90,140,207,0.6)",
@@ -46,37 +47,44 @@ const PresidentInfo = ({route, navigation} : RootStackScreenProps<'PresidentInfo
                     }
                 ]}
             />
+                <SharedElement id={`item.${item.id}.image`}>
+                    <Animated.Image  entering={FadeInUp.duration(1000)}
+                    source={item.image} style={styles.posterImage} />
+                </SharedElement>
+               
+                 <SharedElement id={`item.${item.id}.name`}>
+                    <Text style={styles.posterName}>{`${item.firstname} ${item.lastname}`} </Text>
+                 </SharedElement>
 
-                <Animated.Image sharedTransitionTag={`item.${item.id}.image`} entering={FadeInUp.duration(1000)}
-                 source={item.image} style={styles.posterImage} />
-                <Animated.Text  sharedTransitionTag={`item.${item.id}.name`} style={styles.posterName}>{`${item.firstname} ${item.lastname}`} </Animated.Text>
-                <Animated.Text sharedTransitionTag={`item.${item.id}.status`} style={styles.posterStatus}>{item.politicalStatus}</Animated.Text>
-                {/*<Text style={styles.posterBio}>{item.brefSpeechAndBio}</Text>*/}
+                 <SharedElement id={`item.${item.id}.status`}>
+                    <Text style={styles.posterStatus}>{item.politicalStatus}</Text>
+                 </SharedElement>
+                
 
-                <Animated.View
-                    sharedTransitionTag="generalBg"
-                    sharedTransitionStyle={transitionBg}
-                    style={styles.bgView}
-                >
-                    <ScrollView style={{}} showsVerticalScrollIndicator={false}>
-                        <Animatable.View 
-                            animation="bounceIn" easing="ease-out" 
-                            duration={1000}
-                            style={styles.matchContainer} 
-                        >
-                            <MatchPercent percent={item.matchPercent} />
-                        </Animatable.View>
-                        
-                            <Animatable.Text
-                            animation="fadeInUp"
-                            style={styles.posterBio}
-                        >
-                            {item.brefSpeechAndBio}
-                        </Animatable.Text>
-                        
-                        <View style={{height: item.brefSpeechAndBio.length >= 476 ? TOP_HEADER_HEIGHT + ITEM_HEIGHT : TOP_HEADER_HEIGHT,}} />             
-                    </ScrollView>
-            </Animated.View>
+                <SharedElement id="general.bg" style={{flex: 1}}>
+                    <View
+                        style={styles.bgView}
+                    >
+                        <ScrollView style={{}} showsVerticalScrollIndicator={false}>
+                            <Animatable.View 
+                                animation="bounceIn" easing="ease-out" 
+                                duration={1000}
+                                style={styles.matchContainer} 
+                            >
+                                <MatchPercent percent={item.matchPercent} />
+                            </Animatable.View>
+                            
+                                <Animatable.Text
+                                animation="fadeInUp"
+                                style={styles.posterBio}
+                            >
+                                {item.brefSpeechAndBio}
+                            </Animatable.Text>
+                            
+                            <View style={{height: item.brefSpeechAndBio.length >= 476 ? TOP_HEADER_HEIGHT + ITEM_HEIGHT : TOP_HEADER_HEIGHT,}} />             
+                        </ScrollView>
+                </View>
+            </SharedElement>
             <View style={{position: 'absolute', right: 30, top: TOP_HEADER_HEIGHT - ITEM_SIZE * 0.1 + 50, zIndex:1}}>
                 <ButtonVoteMe onPress={() => console.log('ok')
                 } />
@@ -185,6 +193,17 @@ const styles = StyleSheet.create({
     }
 
 });
+
+PresidentInfo.sharedElements = ({route} : RootStackScreenProps<'PresidentInfo'>) => {
+    const { item } = route.params;
+    return [
+        {id : `item.${item.id}.name`,},
+        {id : `item.${item.id}.status`,},
+        {id : `item.${item.id}.image`},
+        {id : 'general.bg',},
+        
+    ];
+}
 
 
 

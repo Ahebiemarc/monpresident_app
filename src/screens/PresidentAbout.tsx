@@ -15,7 +15,7 @@ import CustomBottomSheet from '../components/bottomsheet/CustomBottomSheet';
 const SPACING:number = 10;
 
 
-const PresidentAbout = ({route, navigation}: RootStackScreenProps<'PresidentInfo'>) => {
+const PresidentAbout = ({route, navigation}: RootStackScreenProps<'PresidentAbout'>) => {
 
     const {item} = route.params;
     const bottomSheetRef = useRef<BottomSheet>(null);
