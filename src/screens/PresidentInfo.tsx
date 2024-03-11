@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from "react-native";
 import { RootStackScreenProps } from "../types/navigation/types";
 import Feather from "react-native-vector-icons/Feather"
 import { Colors } from "../constants/colors/Colors";
@@ -34,17 +34,15 @@ const PresidentInfo = ({route, navigation} : RootStackScreenProps<'PresidentInfo
                 <Feather 
                     name="arrow-left" 
                     size={30}
-                    
-                    
-                />
+                                  
+            />
             </TouchableOpacity>
             <Animated.View  
                 style={[StyleSheet.absoluteFillObject,
                     {
                         backgroundColor: "rgba(90,140,207,0.6)",
                         height: TOP_HEADER_HEIGHT + 32,
-                        borderBottomRightRadius: 16,
-                        borderBottomLeftRadius: 16,
+                        borderRadius: 0,
                     }
                 ]}
             />
@@ -60,19 +58,24 @@ const PresidentInfo = ({route, navigation} : RootStackScreenProps<'PresidentInfo
                     sharedTransitionStyle={transitionBg}
                     style={styles.bgView}
                 >
-                    <Animatable.View 
-                        animation="bounceIn" easing="ease-out" 
-                        duration={1000}
-                        style={styles.matchContainer} 
-                    >
-                        <MatchPercent percent={item.matchPercent} />
-                    </Animatable.View>
-                    <Animatable.Text
-                        animation="fadeInUp"
-                        style={styles.posterBio}
-                    >
-                        {item.brefSpeechAndBio}
-                    </Animatable.Text>
+                    <ScrollView style={{}} showsVerticalScrollIndicator={false}>
+                        <Animatable.View 
+                            animation="bounceIn" easing="ease-out" 
+                            duration={1000}
+                            style={styles.matchContainer} 
+                        >
+                            <MatchPercent percent={item.matchPercent} />
+                        </Animatable.View>
+                        
+                            <Animatable.Text
+                            animation="fadeInUp"
+                            style={styles.posterBio}
+                        >
+                            {item.brefSpeechAndBio}
+                        </Animatable.Text>
+                        
+                        <View style={{height: item.brefSpeechAndBio.length >= 476 ? TOP_HEADER_HEIGHT + ITEM_HEIGHT : TOP_HEADER_HEIGHT,}} />             
+                    </ScrollView>
             </Animated.View>
             <View style={{position: 'absolute', right: 30, top: TOP_HEADER_HEIGHT - ITEM_SIZE * 0.1 + 50, zIndex:1}}>
                 <ButtonVoteMe onPress={() => console.log('ok')
@@ -90,7 +93,7 @@ const PresidentInfo = ({route, navigation} : RootStackScreenProps<'PresidentInfo
                 
             <Animatable.View
                 animation='bounceIn' delay={300}  duration={2000} easing="ease-in"
-                style={{flex: 1}}
+                style={{position: 'absolute', bottom: 0}}
             >
                 <BottomBlue name={item.firstname}  onPress={() => navigation.navigate('PresidentAbout', {item})}/>
             </Animatable.View>
@@ -114,12 +117,11 @@ const styles = StyleSheet.create({
     },
     posterImage: {
         position: "absolute",
-        width: ITEM_SIZE * 0.4,
-        height: ITEM_SIZE * 0.4,
+        width: ITEM_HEIGHT * 0.8,
+        height: ITEM_HEIGHT * 0.8,
         resizeMode: 'contain',
         right: SPACING,
-        top: TOP_HEADER_HEIGHT - ITEM_SIZE * 0.42,
-        zIndex: 2,
+        top: TOP_HEADER_HEIGHT - ITEM_HEIGHT * 0.8,
 
     },
     posterName :{
@@ -143,7 +145,8 @@ const styles = StyleSheet.create({
     matchContainer: {
         justifyContent: 'center',
         marginLeft: -20,
-        marginTop: -25
+        marginTop: 0,
+        marginBottom: SPACING,
     },
     posterBio:{
         fontFamily: 'Poppins-Regular',
@@ -156,11 +159,12 @@ const styles = StyleSheet.create({
         width: SCREEN_WIDTH,
         height: SCREEN_HEIGHT,
         backgroundColor: Colors.white,
-        transform: [{translateY: SCREEN_HEIGHT /3.4}],
+        transform: [{translateY: TOP_HEADER_HEIGHT}],
         borderRadius: 32,
         padding: SPACING + 32,
         paddingRight: SPACING,
-        paddingTop: 32,
+        paddingTop: 32 + SPACING,
+        flex: 1,
   
     },
     containerAbout:{

@@ -16,7 +16,7 @@ type ButtonVoteMeProps = {
 const ButtonVoteMe =  ({onPress}: ButtonVoteMeProps) : React.JSX.Element => {
 
     return(
-        <TouchableOpacity onPress={onPress} activeOpacity={0.5} style={[styles.button, styles.center, styles.boxWithShadow]} >
+        <View  style={[styles.button, styles.center, styles.boxWithShadow]} >
                 {
                     [...Array(3).keys()].map(index => {
                         return (
@@ -38,13 +38,13 @@ const ButtonVoteMe =  ({onPress}: ButtonVoteMeProps) : React.JSX.Element => {
                         )
                     })
                 }
-                <View
-                        
+                <TouchableOpacity
+                        onPress={onPress} activeOpacity={0.5}
                         style={[styles.button,]}
                     >
                     <MaterialCommunityIcons name="hand-front-right" color={Colors.white} size={30} style={styles.buttonIcon} />
-                </View>
-        </TouchableOpacity>
+                </TouchableOpacity>
+        </View>
     );
 };
 
