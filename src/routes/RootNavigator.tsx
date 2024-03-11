@@ -7,6 +7,7 @@ import Signup from "../screens/Signup";
 import TabNavigator from "./TabNavigator";
 import { View } from "react-native";
 import PresidentInfo from "../screens/PresidentInfo";
+import PresidentAbout from "../screens/PresidentAbout";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -20,12 +21,15 @@ const RootNavigator = () => {
                     //animation: "fade",
                   }}
             >
-                <RootStack.Screen name="Splash" component={SplashScreen} />
+                <RootStack.Screen name="Splash" component={SplashScreen}/>
                 <RootStack.Screen name="Onboarding" component={OnboardingScreen} />
                 <RootStack.Screen name="Login" component={Login} />
                 <RootStack.Screen name="Signup" component={Signup} />
                 <RootStack.Screen name="Tab" component={TabNavigator} />
-                <RootStack.Screen name="PresidentInfo" component={PresidentInfo} />
+                <RootStack.Screen name="PresidentInfo" component={PresidentInfo}
+                    options={{ animation: "fade"}}
+                 />
+                <RootStack.Screen name="PresidentAbout" component={PresidentAbout} />
             </RootStack.Group>
         </RootStack.Navigator>
         </View>

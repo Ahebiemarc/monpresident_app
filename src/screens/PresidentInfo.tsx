@@ -1,16 +1,17 @@
 import React, { useCallback, useRef, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { RootStackScreenProps } from "../types/navigation/types";
 import Feather from "react-native-vector-icons/Feather"
 import { Colors } from "../constants/colors/Colors";
-import { Image } from "react-native";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../constants/Constants";
-import { ITEM_SIZE } from "./tabs/Home";
+import { ITEM_SIZE, transitionBg } from "./tabs/Home";
 import MatchPercent from "../components/MatchPercent";
-import CustomBottomSheet from "../components/bottomsheet/CustomBottomSheet";
-import ListOccupationItem from "../components/bottomsheet/ListOccupationItem";
-import BottomSheet from "@gorhom/bottom-sheet";
-import ListItem from "../components/bottomsheet/ListItem";
+import BottomBlue from "../components/bottomBlue";
+
+import * as Animatable from "react-native-animatable";
+import Animated, { FadeInUp } from "react-native-reanimated";
+import ButtonVoteMe from "../components/ButtonVoteMe";
+
 
 const SPACING:number = 10;
 const ITEM_HEIGHT:number = SCREEN_HEIGHT * 0.18;
@@ -19,42 +20,10 @@ const TOP_HEADER_HEIGHT:number = SCREEN_HEIGHT * 0.3
 
 
 
-
 const PresidentInfo = ({route, navigation} : RootStackScreenProps<'PresidentInfo'>) => {
 
-    const { item } = route.params
-    const bottomSheetRef = useRef<BottomSheet>(null);
-    const [index, setIndex] = useState(1)
-
-
-    
-
-    
-    const handleOpenOccupationPress = () => {
-        setIndex(i => i = 1)
-        bottomSheetRef.current?.snapToIndex(0);
-    };
-    const handleOpenEducationPress = () => {
-        setIndex(i => i = 3)
-        bottomSheetRef.current?.snapToIndex(0);
-    };
-
-    const renderContent = useCallback((c: number) => {
-        switch (c) {
-            case 1:
-                return <View style={{alignItems:'center'}}><ListItem choice={c} itemsOccupation={item.aboutPresident.occupation} /></View>
-            /*µcase 2:
-                return <ListOccupationItem itemsOccupation={item.occupations} />*/
-            case 3:
-                return <View style={{alignItems: 'center'}}><ListItem choice={c} itemsEducation={item.aboutPresident.education} /></View>
-            /*case 4:
-                return <ListOccupationItem itemsOccupation={item.occupations} />*/
-            default:
-                return null;
-        }
-    }, [index]);
+    const { item } = route.params;
      
-
     return (
         <View style={styles.container}>
             <TouchableOpacity
@@ -69,7 +38,7 @@ const PresidentInfo = ({route, navigation} : RootStackScreenProps<'PresidentInfo
                     
                 />
             </TouchableOpacity>
-            <View
+            <Animated.View  
                 style={[StyleSheet.absoluteFillObject,
                     {
                         backgroundColor: "rgba(90,140,207,0.6)",
@@ -78,58 +47,54 @@ const PresidentInfo = ({route, navigation} : RootStackScreenProps<'PresidentInfo
                         borderBottomLeftRadius: 16,
                     }
                 ]}
-            >
+            />
 
-                <Image source={item.image} style={styles.posterImage} />
-                <Text style={styles.posterName}>{`${item.firstname} ${item.lastname}`} </Text>
-                <Text style={styles.posterStatus}>{item.politicalStatus}</Text>
+                <Animated.Image sharedTransitionTag={`item.${item.id}.image`} entering={FadeInUp.duration(1000)}
+                 source={item.image} style={styles.posterImage} />
+                <Animated.Text  sharedTransitionTag={`item.${item.id}.name`} style={styles.posterName}>{`${item.firstname} ${item.lastname}`} </Animated.Text>
+                <Animated.Text sharedTransitionTag={`item.${item.id}.status`} style={styles.posterStatus}>{item.politicalStatus}</Animated.Text>
                 {/*<Text style={styles.posterBio}>{item.brefSpeechAndBio}</Text>*/}
 
-                <View 
+                <Animated.View
+                    sharedTransitionTag="generalBg"
+                    sharedTransitionStyle={transitionBg}
                     style={styles.bgView}
                 >
-                    <View style={styles.matchContainer} >
-                        <MatchPercent percent={item.matchPercent} />
-                    </View>
-                    <Text style={styles.posterBio}>{item.brefSpeechAndBio}</Text>
-                    <TouchableOpacity 
-                        style={styles.containerAbout} 
-                        activeOpacity={0.5}
-                        onPress={handleOpenOccupationPress}
-                        >
-                        <Text style={styles.aboutText}>Occupation</Text>
-                        <Feather name="activity" color={Colors.black} size={24}/>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.containerAbout} activeOpacity={0.7}>
-                        <Text style={styles.aboutText}>Expérience</Text>
-                        <Feather name="user-check" color={Colors.black} size={24}/>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity 
-                    style={styles.containerAbout} 
-                    activeOpacity={0.7}
-                    onPress={handleOpenEducationPress}
+                    <Animatable.View 
+                        animation="bounceIn" easing="ease-out" 
+                        duration={1000}
+                        style={styles.matchContainer} 
                     >
-                        <Text style={styles.aboutText}>Education</Text>
-                        <Feather name="award" color={Colors.black} size={24}/>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.containerAbout} activeOpacity={0.7}>
-                        <Text style={styles.aboutText}>Projet</Text>
-                        <Feather name="briefcase" color={Colors.black} size={24}/>
-                    </TouchableOpacity>
-                </View>
-                
+                        <MatchPercent percent={item.matchPercent} />
+                    </Animatable.View>
+                    <Animatable.Text
+                        animation="fadeInUp"
+                        style={styles.posterBio}
+                    >
+                        {item.brefSpeechAndBio}
+                    </Animatable.Text>
+            </Animated.View>
+            <View style={{position: 'absolute', right: 30, top: TOP_HEADER_HEIGHT - ITEM_SIZE * 0.1 + 50, zIndex:1}}>
+                <ButtonVoteMe onPress={() => console.log('ok')
+                } />
             </View>
-                <CustomBottomSheet ref={bottomSheetRef}>
+            
+                {/*<CustomBottomSheet ref={bottomSheetRef}>
                     {renderContent(index)}
                 </CustomBottomSheet>
-                {/*<CustomBottomSheet ref={bottomSheetEdRef}>
+                <CustomBottomSheet ref={bottomSheetEdRef}>
                     <View style={{alignItems:'center'}}>
                         <ListEducationItem items={item.aboutPresident.education} />
                     </View>
             </CustomBottomSheet>*/}
+                
+            <Animatable.View
+                animation='bounceIn' delay={300}  duration={2000} easing="ease-in"
+                style={{flex: 1}}
+            >
+                <BottomBlue name={item.firstname}  onPress={() => navigation.navigate('PresidentAbout', {item})}/>
+            </Animatable.View>
+
 
         </View>
     );
@@ -153,7 +118,8 @@ const styles = StyleSheet.create({
         height: ITEM_SIZE * 0.4,
         resizeMode: 'contain',
         right: SPACING,
-        top: TOP_HEADER_HEIGHT - ITEM_SIZE * 0.3
+        top: TOP_HEADER_HEIGHT - ITEM_SIZE * 0.42,
+        zIndex: 2,
 
     },
     posterName :{
@@ -161,7 +127,7 @@ const styles = StyleSheet.create({
         fontSize: 28,
         color: Colors.witheOpacity,
         position: "absolute",
-        top: TOP_HEADER_HEIGHT - SPACING * 14,
+        top: TOP_HEADER_HEIGHT - SPACING * 17,
         letterSpacing: 3,
         left: SPACING * 2,
     },
@@ -170,7 +136,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         color: Colors.witheOpacity,
         position: "absolute",
-        top: TOP_HEADER_HEIGHT - SPACING * 9,
+        top: TOP_HEADER_HEIGHT - SPACING * 12,
         letterSpacing: 3,
         marginLeft: SPACING * 2,
     },
@@ -192,7 +158,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.white,
         transform: [{translateY: SCREEN_HEIGHT /3.4}],
         borderRadius: 32,
-        zIndex: -1,
         padding: SPACING + 32,
         paddingRight: SPACING,
         paddingTop: 32,

@@ -1,15 +1,20 @@
 import React, { useRef } from "react";
-import { Animated, FlatList, Image, Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Animated as RNAnimated, FlatList, Image, Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MatchPercent from "../../components/MatchPercent";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../constants/Constants";
 import { President_DATA } from "../../constants/data/data";
-import { IPresident } from "../../interfaces/interfaces";
 import { Colors } from "../../constants/colors/Colors";
 import { truncateString } from "../../utils/functionString";
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import LinearGradient from "react-native-linear-gradient";
 import BackdropImage from "../../components/BackDropImage";
 import { RootStackScreenProps } from "../../types/navigation/types";
+
+import Animated, { SharedTransition, withSpring } from 'react-native-reanimated';
+import ButtonVoteMe from "../../components/ButtonVoteMe";
+
+
+
+
 
 
 const SPACING = 10;
@@ -20,15 +25,21 @@ export const BACKDROP_HEIGHT = SCREEN_HEIGHT * 0.65;
 const CANDIDATES = [{id: 'left-spacer'}, ...President_DATA, {id: 'right-spacer'}];
 
 
-
-
+export const transitionBg = SharedTransition.custom((values) => {
+    'worklet';
+    return {
+        height: withSpring(values.targetHeight),
+        width: withSpring(values.targetWidth),
+        originX: withSpring(values.targetOriginX),
+        originY: withSpring(values.targetOriginY),
+    };
+  });
 
 
 const Home = ({navigation}: RootStackScreenProps<'Tab'>) => {
 
 
-    const scrollX:Animated.Value = useRef(new Animated.Value(0)).current
-
+    const scrollX:RNAnimated.Value = useRef(new RNAnimated.Value(0)).current
 
 
     const renderItem = ({ item, index} : {item : any, index: number}) =>{
@@ -53,7 +64,7 @@ const Home = ({navigation}: RootStackScreenProps<'Tab'>) => {
         const bio = truncateString(item.brefSpeechAndBio, 50);
 
         return(
-            <Animated.View 
+            <RNAnimated.View 
             style={{
                 width : ITEM_SIZE,
                 transform: [{translateY}]
@@ -61,15 +72,30 @@ const Home = ({navigation}: RootStackScreenProps<'Tab'>) => {
                 <TouchableOpacity
                     activeOpacity={1}
                     onPress={() => {
-                        console.log(item);
+                       // console.log(item);
                         
                         navigation.navigate('PresidentInfo', {item})
                     }}
                 >
-                    <View style={styles.slideContainer}>
-                        <Image source={item.image} style={styles.posterImage} />
-                        <Text style={styles.posterName}>{`${item.firstname} ${item.lastname}`} </Text>
-                        <Text style={styles.posterStatus}>{item.politicalStatus}</Text>
+                    <View  style={styles.slideContainer}>
+                        <Animated.Image
+                            sharedTransitionTag={`item.${item.id}.image`}
+                            source={item.image} 
+                            style={styles.posterImage} 
+                        />
+                        
+                        <Animated.Text
+                            sharedTransitionTag={`item.${item.id}.name`}  
+                            style={styles.posterName}
+                        >
+                            {`${item.firstname} ${item.lastname}`} 
+                        </Animated.Text>
+                        <Animated.Text 
+                            sharedTransitionTag={`item.${item.id}.status`} 
+                            style={styles.posterStatus}
+                        >
+                            {item.politicalStatus}
+                        </Animated.Text>
                         <Text style={styles.posterBio}>{bio}</Text>
                         <FeatherIcon name="arrow-right" size={20} color={Colors.black}
                             style={{left: 100}}
@@ -80,7 +106,7 @@ const Home = ({navigation}: RootStackScreenProps<'Tab'>) => {
                     </View>
                 </TouchableOpacity>
                 
-            </Animated.View>
+            </RNAnimated.View>
         )
     
     };
@@ -89,12 +115,12 @@ const Home = ({navigation}: RootStackScreenProps<'Tab'>) => {
         <View style={styles.container} >
             <StatusBar barStyle={'default'}/>
             <BackdropImage candidate={President_DATA} scrollX={scrollX} />
-            <Animated.FlatList 
+            <RNAnimated.FlatList 
             showsHorizontalScrollIndicator={false}
                 data={CANDIDATES}
                 keyExtractor={(item) => item.id + 'president'}
                 horizontal
-                onScroll={Animated.event(
+                onScroll={RNAnimated.event(
                     [{ nativeEvent: { contentOffset: { x: scrollX } } }],
                     { useNativeDriver: false }
                 )}
@@ -108,7 +134,9 @@ const Home = ({navigation}: RootStackScreenProps<'Tab'>) => {
                 renderItem={renderItem}
 
             />
-            <View 
+            <Animated.View 
+                sharedTransitionTag="generalBg"
+                sharedTransitionStyle={transitionBg} 
             style={styles.bgView}
             />
             

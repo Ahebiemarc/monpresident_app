@@ -91,7 +91,7 @@ export interface IThemeProject  {
     theme: 'L\'education' | 'L\'environnement' | 'La santé' | 'L\'emploi'| 'L\'immigration';
 };
 
-export interface IPresidentProject {
+export interface IProject {
     id: string;
     title: string;
     theme: IThemeProject
@@ -105,7 +105,7 @@ export interface IPresidentAbout {
     education: Array<IEducation>;
     experience: Array<IExperience>;
     occupation: Array<IOccupation>;
-    projects: Array<IPresidentProject>;
+    projects: Array<IProject>;
 
 };
 
