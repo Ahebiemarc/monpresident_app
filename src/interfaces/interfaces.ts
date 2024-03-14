@@ -83,7 +83,9 @@ export interface IElector{
     images: Array<string>;
     address: string;
     city: string;
-    state: string;
+    country: string;
+    religion: string;
+    relationshipStatus: string;
 }
 
 export interface IThemeProject  {

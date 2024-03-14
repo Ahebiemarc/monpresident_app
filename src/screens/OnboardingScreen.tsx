@@ -45,7 +45,7 @@ const OnboardingScreen = ({navigation}: RootStackScreenProps<'Onboarding'>): Rea
                             <View style={{flex: 0.7, justifyContent: 'center', padding: 20}}>
                                 <Image source={item.image} style={styles.images} />
                             </View>
-                            <View style={{flex: 0.3}}>
+                            <View style={{flex: 0.2, marginBottom: 20}}>
                                 <Text style={styles.title}>{item.title}</Text>
                                 <Text style={styles.description}>{item.description}</Text>
                             </View>
@@ -55,13 +55,16 @@ const OnboardingScreen = ({navigation}: RootStackScreenProps<'Onboarding'>): Rea
             />
             <View style={{
                 flexDirection: 'row',
-                justifyContent: 'flex-start',
+                justifyContent: 'space-evenly',
                 alignItems: 'center',
+                position: 'relative',
+                bottom: 0,
+                marginHorizontal: 20,
             }} >
             <Button 
                 title="Se connecter" 
                 color={Colors.white} 
-                paddingH={30}
+                paddingH={20}
                 paddingV={19}
                 left={-20}
                 onPress={() => navigation.replace('Tab', {screen: 'Home'})}
@@ -69,7 +72,7 @@ const OnboardingScreen = ({navigation}: RootStackScreenProps<'Onboarding'>): Rea
                  <Button 
                 title="S'inscrire" 
                 color={Colors.white} 
-                paddingH={30}
+                paddingH={20}
                 paddingV={19}
                 right={-10}
                 />
@@ -109,8 +112,8 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-Regular',
         color: Colors.white,
         fontSize: 16,
-        padding: 10,
-        paddingTop: 0
+        paddingHorizontal: 10,
+        paddingTop: 0,
     },
     contentContainer: {
         paddingBottom: 100

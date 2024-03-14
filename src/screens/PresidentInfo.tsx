@@ -11,7 +11,6 @@ import BottomBlue from "../components/bottomBlue";
 import * as Animatable from "react-native-animatable";
 import Animated, { FadeInUp } from "react-native-reanimated";
 import ButtonVoteMe from "../components/ButtonVoteMe";
-import { SharedElement } from "react-navigation-shared-element";
 
 
 const SPACING:number = 10;
@@ -47,22 +46,16 @@ const PresidentInfo = ({route, navigation} : RootStackScreenProps<'PresidentInfo
                     }
                 ]}
             />
-                <SharedElement id={`item.${item.id}.image`}>
-                    <Animated.Image  entering={FadeInUp.duration(1000)}
-                    source={item.image} style={styles.posterImage} />
-                </SharedElement>
+                <Animated.Image sharedTransitionTag={`item.${item.id}.image`}  entering={FadeInUp.duration(1000)}
+                source={item.image} style={styles.posterImage} />
                
-                 <SharedElement id={`item.${item.id}.name`}>
-                    <Text style={styles.posterName}>{`${item.firstname} ${item.lastname}`} </Text>
-                 </SharedElement>
+                <Animated.Text sharedTransitionTag={`item.${item.id}.name`} style={styles.posterName}>{`${item.firstname} ${item.lastname}`} </Animated.Text>
 
-                 <SharedElement id={`item.${item.id}.status`}>
-                    <Text style={styles.posterStatus}>{item.politicalStatus}</Text>
-                 </SharedElement>
+                    <Animated.Text sharedTransitionTag={`item.${item.id}.status`} style={styles.posterStatus}>{item.politicalStatus}</Animated.Text>
                 
 
-                <SharedElement id="general.bg" style={{flex: 1}}>
-                    <View
+                    <Animated.View
+                    sharedTransitionTag="general.bg"
                         style={styles.bgView}
                     >
                         <ScrollView style={{}} showsVerticalScrollIndicator={false}>
@@ -83,8 +76,7 @@ const PresidentInfo = ({route, navigation} : RootStackScreenProps<'PresidentInfo
                             
                             <View style={{height: item.brefSpeechAndBio.length >= 476 ? TOP_HEADER_HEIGHT + ITEM_HEIGHT : TOP_HEADER_HEIGHT,}} />             
                         </ScrollView>
-                </View>
-            </SharedElement>
+                </Animated.View>
             <View style={{position: 'absolute', right: 30, top: TOP_HEADER_HEIGHT - ITEM_SIZE * 0.1 + 50, zIndex:1}}>
                 <ButtonVoteMe onPress={() => console.log('ok')
                 } />

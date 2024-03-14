@@ -8,7 +8,7 @@ import { truncateString } from "../../utils/functionString";
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import BackdropImage from "../../components/BackDropImage";
 import { RootStackScreenProps } from "../../types/navigation/types";
-import { SharedElement } from "react-navigation-shared-element";
+import Animated from "react-native-reanimated";
 
 
 
@@ -60,32 +60,23 @@ const Home = ({navigation}: RootStackScreenProps<'Tab'>) => {
                 <TouchableOpacity
                     activeOpacity={1}
                     onPress={() => {
-                       // console.log(item);
                         
                         navigation.navigate('PresidentInfo', {item})
                     }}
                 >
                     <View  style={styles.slideContainer}>
-                        <SharedElement 
-                            id={`item.${item.id}.image`} 
-                            style={styles.posterImage}
-                        >
-                        <Image
+                        
+                        <Animated.Image sharedTransitionTag={`item.${item.id}.image`}
                             source={item.image} 
                             style={styles.posterImage} 
                         />
-                        </SharedElement>
                         
-                        <SharedElement id={`item.${item.id}.name`}>
-                            <Text style={styles.posterName}>
+                            <Animated.Text sharedTransitionTag={`item.${item.id}.name`} style={styles.posterName}>
                                 {`${item.firstname} ${item.lastname}`} 
-                            </Text>
-                        </SharedElement>
-                        <SharedElement id={`item.${item.id}.status`}>
-                            <Text style={styles.posterStatus}>
+                            </Animated.Text>
+                            <Animated.Text sharedTransitionTag={`item.${item.id}.status`} style={styles.posterStatus}>
                                 {item.politicalStatus}
-                            </Text>
-                        </SharedElement>
+                            </Animated.Text>
                         <Text style={styles.posterBio}>{bio}</Text>
                         <FeatherIcon name="arrow-right" size={20} color={Colors.black}
                             style={{left: 100}}
@@ -124,11 +115,10 @@ const Home = ({navigation}: RootStackScreenProps<'Tab'>) => {
                 renderItem={renderItem}
 
             />
-            <SharedElement id="general.bg">
-                <View 
+                <Animated.View 
+                sharedTransitionTag="general.bg"
                 style={styles.bgView}
                 />
-            </SharedElement>
             
         </View>
     );

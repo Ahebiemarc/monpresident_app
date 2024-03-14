@@ -1,5 +1,5 @@
 import { CompositeScreenProps, NavigatorScreenParams } from "@react-navigation/native";
-import { StackScreenProps } from "@react-navigation/stack";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { IPresident } from "../../interfaces/interfaces";
 
@@ -25,7 +25,7 @@ export type RootStackParamList = {
  */
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> = 
-    StackScreenProps<RootStackParamList, T>;
+    NativeStackScreenProps<RootStackParamList, T>;
 
 
 // définition des paramètres de route possibles pour les onglets dans l'écran d'accueil

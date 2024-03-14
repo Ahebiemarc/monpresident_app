@@ -16,13 +16,13 @@ const BottomBlue = ({name, onPress}: BottomBlueProps) => {
         <TouchableOpacity style={styles.container} activeOpacity={0.7} onPress={onPress} >
             <View  style={styles.hyphen} />
             <View style={styles.contentContainer}>
-                <View style={{padding: 10 , marginRight: 10,}}>
+                <View style={{padding: 0 , margin: 5,}}>
                     <Feather name="user" size={24} color={Colors.black} />
                     <Feather name="users" size={30} color={Colors.black} />
                 </View>
             
                 <Text style={styles.text}>Apprenez plus sur votre président {name}</Text>
-                <Feather name="arrow-up" size={24} color="white" style={{marginLeft:10}} />
+                <Feather name="arrow-up" size={24} color="white" style={{margin:5}} />
             </View>
         </TouchableOpacity>
     );
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     },
  
       text: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: 'Poppins-Medium',
         letterSpacing: 3,
         color: Colors.white,

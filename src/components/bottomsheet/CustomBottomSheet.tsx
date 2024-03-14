@@ -32,7 +32,7 @@ const CustomBottomSheet = forwardRef<Ref, CustomBottomSheetProps>((props, ref) =
             backdropComponent={rennderBackDrop}
             enablePanDownToClose={true}
             handleIndicatorStyle={{backgroundColor: Colors.white,}}
-            backgroundStyle={{ borderTopLeftRadius: 50, borderTopRightRadius: 50,}}
+            backgroundStyle={{ borderTopLeftRadius: 25, borderTopRightRadius: 25,}}
         
             
 
