@@ -78,9 +78,9 @@ export interface IElector{
     birthdate: string;
     gender: string;
     email: string;
-    phones: Array<string>;
+    phone: Number;
     occupation: string;
-    images: Array<string>;
+    photo: string;
     address: string;
     city: string;
     country: string;
