@@ -4,134 +4,59 @@ import { Resolver } from "react-hook-form";
 
 
 // Définition du type pour les valeurs du formulaire
-type FormValues = Partial<IElector>;
 
 // Résolveur pour la validation des champs
-export const resolver: Resolver<FormValues> = async (values) => {
+export const resolver: Resolver<IElector> = async (values) => {
 
-    let errors = {};
-    if (!values.firstname) {
-        errors = {
-            ...errors,
-            firstname: {
-                type: 'required',
-                message: "Votre nom est obligatoire"
-            },
-        };
-    };
+    const numberLength = 10
 
-    if (!values.lastname) {
-        errors = {
-          ...errors,
-            lastname: {
-                type:'required',
-                message: "Votre prénom est obligatoire"
-            },
-        };
-    };
+    const errors: { [key: string]: string | { type: string; message: string; } } = {};
 
-    if (!values.birthdate) {
-        errors = {
-        ...errors,
-            birthdate: {
-                type:'required',
-                message: "Votre date de naissance est obligatoire"
-            },
-        };
-    };
 
-    if (!values.gender) {
-        errors = {
-            ...errors,
-               gender: {
-                type:'required',
-                message: "Le genre est obligatoire"
-            },
+    const requiredFields: Array<keyof IElector> = [
+        "firstname",
+        "lastname",
+        "birthdate",
+        "gender",
+        "phone",
+        "occupation",
+        "photo",
+        //"address",
+        "city",
+        "country",
+        "religion",
+        "relationshipStatus"
+    ];
+
+      // Vérifier les champs requis et la longueur du numéro de téléphone
+      for (const field of requiredFields) {
+        if (!values[field]) {
+            errors[field] = {
+                type: "required",
+                message: `Le champ ${field} est obligatoire.`
+            };
+        } else if (field === "phone" && typeof values[field] === "number") { // Supposant que phone est une chaîne
+            if (values[field].toString().length < numberLength) {
+                errors[field] = {
+                    type: "minLength",
+                    message: `Le champ ${field} doit comporter au moins ${numberLength} chiffres.`
+                };
+            }
+            if (values[field].toString().length > numberLength) {
+                errors[field] = {
+                    type: "maxLength",
+                    message: `Le champ ${field} doit comporter au maximum ${numberLength} chiffres.`
+                };
+            }
         }
-    };
-
-    if (!values.phone) {
-        errors = {
-          ...errors,
-            phone: {
-                type:'required',
-                message: "Votre numéro est obligatoire"
-            },
-        };
-    };
-
-    if (!values.occupation) {
-        errors = {
-          ...errors,
-            occupation: {
-                type:'required',
-                message: "Votre occupation est obligatoire"
-            },
-        };
-    };
-
-    if(!values.photo){
-        errors = {
-        ...errors,
-            photo: {
-                type:'required',
-                message: "Votre photo est obligatoire"
-            },
-        };
-    };
-
-    if(!values.address){
-        errors = {
-        ...errors,
-            address: {
-                type:'required',
-                message: "Votre adresse est obligatoire"
-            },
-        };
-    };
-
-    if(!values.city){
-        errors = {
-        ...errors,
-            city: {
-                type:'required',
-                message: "La ville est obligatoire"
-            },
-        };
-    };
-
-    if(!values.country){
-        errors = {
-            ...errors,
-            country: {
-                type:'required',
-                message: "Le pays est obligatoire"
-            },
-        };
-    };
-    
-    if(!values.religion){
-        errors = {
-          ...errors,
-            religion: {
-                type:'required',
-                message: "La religion est obligatoire"
-            },
-        };
-    };
-
-    if(!values.relationshipStatus){
-        errors = {
-        ...errors,
-            relationshipStatus: {
-                type:'required',
-                message: "Le statut de la relation est obligatoire"
-            },
-        };
     }
+
+    console.log(values);
     
+
+    // Retourner les valeurs et les erreurs
     return {
-        values: errors ? {} : values,
-        errors,
-    }
+        values : errors ? {} : values, // Retourner les valeurs saisies par l'utilisateur même en cas d'erreurs
+        errors // Object.keys(errors).length > 0 ? errors : {}
+    };
 }

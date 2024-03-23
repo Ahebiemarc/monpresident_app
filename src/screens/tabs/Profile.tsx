@@ -34,8 +34,7 @@ const Profile = () => {
                     </View>
                     <View style={styles.blockContent22}>
                         <Text style={[styles.age, {fontSize: 14, color: 'rgba(255, 255, 255, 0.8)'}]}>Numéro</Text>
-                        <Text style={styles.age}>(+225) 0749435490</Text>
-                        <Text style={styles.age}>(+216) 58164490</Text>
+                        <Text style={styles.age}>0749435490</Text>
                     </View>
                     
                     <View style={styles.blockContent22}>

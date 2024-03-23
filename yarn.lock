@@ -6028,10 +6028,10 @@ react-native-worklets-core@*, react-native-worklets-core@^0.4.0:
   dependencies:
     string-hash-64 "^1.0.3"
 
-react-native@*, react-native@>=0.46, react-native@0.73.5:
-  version "0.73.5"
-  resolved "https://registry.npmjs.org/react-native/-/react-native-0.73.5.tgz"
-  integrity sha512-iHgDArmF4CrhL0qTj+Rn+CBN5pZWUL9lUGl8ub+V9Hwu/vnzQQh8rTMVSwVd2sV6N76KjpE5a4TfIAHkpIHhKg==
+react-native@*, react-native@^0.73.6, react-native@>=0.46:
+  version "0.73.6"
+  resolved "https://registry.npmjs.org/react-native/-/react-native-0.73.6.tgz"
+  integrity sha512-oqmZe8D2/VolIzSPZw+oUd6j/bEmeRHwsLn1xLA5wllEYsZ5zNuMsDus235ONOnCRwexqof/J3aztyQswSmiaA==
   dependencies:
     "@jest/create-cache-key-function" "^29.6.3"
     "@react-native-community/cli" "12.3.6"

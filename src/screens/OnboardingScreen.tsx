@@ -75,6 +75,7 @@ const OnboardingScreen = ({navigation}: RootStackScreenProps<'Onboarding'>): Rea
                 paddingH={20}
                 paddingV={19}
                 right={-10}
+                onPress={() => navigation.navigate('Signup')}
                 />
             </View>
             <Indicator scrollX={scrollX} />
