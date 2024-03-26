@@ -72,13 +72,13 @@ export interface IMatched {
 }
 
 export interface IElector{
-    id: string;
+    cin: string;
     firstname: string;
     lastname: string;
-    birthdate: string;
+    birthday: Date;
     gender: string;
     email: string;
-    phone: number;
+    phone: string;
     occupation: string;
     photo: string;
     address: string;

@@ -1,57 +1,56 @@
-import React from "react";
-import { Control, FieldErrors, useController } from "react-hook-form";
-import { StyleSheet, Text, TextInput } from "react-native";
+import React, { forwardRef } from "react";
+import { StyleSheet, Text, TextInput, TextInputProps } from "react-native";
 import { View } from "react-native-animatable";
 import { Colors } from "../../constants/colors/Colors";
-import { IElector } from "../../interfaces/interfaces";
 
-type InputProps = {
-    text: string;
-    name: any;
+interface InputProps extends TextInputProps  {
+    label: string;
+    value: string;
     placeholder: string;
-    control: Control<IElector>;
-    errors?: string | undefined;
+    onChangeText: (text: string) => void;
+    onSubmitEditing?: () => void;
+    keyboardType?: 'default' | 'numeric'
+    errorMessage?: string
 };
-function Input ({text, name, placeholder, control, errors}: InputProps) {
+const Input = forwardRef<TextInput, InputProps>((props, ref) =>{
 
-    const {field} = useController({
-        control,
-        defaultValue: '',
-        name,
-    });
-
-    
+    const {label, value, placeholder, onChangeText, keyboardType='default', errorMessage, onSubmitEditing, ...rest} = props;
 
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>
-                {text}
+            <Text style={styles.label}>
+                {label}
             </Text>
 
             <TextInput
+                ref={ref}
                 style={styles.textInput}
+                autoCorrect={false}
+                autoCapitalize="none"
+                value={value}
                 placeholder={placeholder}
-                value={field.value}
-                onChangeText={field.onChange}
-                //onBlur={field.onBlur}
+                onChangeText={onChangeText}
+                keyboardType={keyboardType}
+                onSubmitEditing={onSubmitEditing}
              />
 
-             <Text style={styles.errorText}>{errors}</Text>
+             <Text style={styles.errorText}>{errorMessage}</Text>
 
         </View>
     );
-};
+});
 
 const styles = StyleSheet.create({
-    container: {},
-    text: { 
+    container: {
+        marginBottom: 15,
+    },
+    label: { 
         fontSize: 18,
         fontFamily: 'Poppins-Medium',
         letterSpacing: 1.5,
         color: Colors.black,
-        marginTop: 10,
-        //marginBottom: ,
+        marginBottom: 5,
     },
     textInput: {
         width: '100%',
@@ -65,6 +64,7 @@ const styles = StyleSheet.create({
         color: 'red',
         fontSize: 14,
         fontFamily: 'Poppins-Regular',
+        marginTop: 5,
     },
 });
 
