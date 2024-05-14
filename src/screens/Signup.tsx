@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     title:{
-        fontSize: 35,
+        fontSize: 32,
         fontFamily: 'Poppins-Bold',
         letterSpacing: 1.5,
         color: Colors.blueDark,
@@ -239,8 +239,8 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.blueDark,
         paddingHorizontal: 10,
         paddingVertical:20,
-        borderTopLeftRadius:8,
-        borderTopRightRadius:8,
+        borderTopLeftRadius:15,
+        borderTopRightRadius:15,
 
     },
     buttonText:{

@@ -1,7 +1,7 @@
 import React from "react";
 import { StatusBar, StyleSheet, View, Dimensions } from "react-native";
 import LottieView from "lottie-react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+//import { SafeAreaView } from "react-native-safe-area-context";
 import { RootStackScreenProps } from "../types/navigation/types";
 
 const { width, height } = Dimensions.get("screen");
