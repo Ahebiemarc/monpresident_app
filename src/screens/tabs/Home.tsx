@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { FC, useRef } from "react";
 import { Animated as RNAnimated, FlatList, Image, Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MatchPercent from "../../components/MatchPercent";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../constants/Constants";
@@ -24,7 +24,7 @@ const CANDIDATES = [{id: 'left-spacer'}, ...President_DATA, {id: 'right-spacer'}
 
 
 
-const Home = ({navigation}: RootStackScreenProps<'Tab'>) => {
+const Home: FC<RootStackScreenProps<'Tab'>> = ({navigation}) => {
 
 
     const scrollX:RNAnimated.Value = useRef(new RNAnimated.Value(0)).current

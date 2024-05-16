@@ -2,6 +2,7 @@ import { CompositeScreenProps, NavigatorScreenParams } from "@react-navigation/n
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { IPresident } from "../../interfaces/interfaces";
+import { PhotoFile } from "react-native-vision-camera";
 
 
 
@@ -11,9 +12,12 @@ export type RootStackParamList = {
   Splash: undefined
   Onboarding: undefined;
   Login: undefined;
-  Signup: undefined;
+  Signup: {photo?: PhotoFile};
   PresidentInfo: {item: IPresident};
-  PresidentAbout: { item: IPresident };
+  PresidentAbout: { item: IPresident};
+  CameraFace: {photo?: string};
+
+  
 };
 
 /**
