@@ -1,32 +1,35 @@
 import React from "react";
-import { Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Colors } from "../../constants/colors/Colors";
+import Feather from "react-native-vector-icons/Feather";
+import { SCREEN_WIDTH } from "../../constants/Constants";
 
-const ImagePicer = () =>{
+const profileNone = require('../../../assets/images/profileNone-removebg.png')
 
-    const Onpress = () => {
-        console.log("Onpress")
-    }
+type ImagePicerProps = {
+    onPress: () => void;
+}
+
+const ImagePicer: React.FC<ImagePicerProps> = ({onPress}) =>{
+
+   
 
     return(
-        <TouchableOpacity onPress={Onpress}>
-            <Image source={{uri}}
-                style={[
-                    styles.image,
-                    aviOnly && {height: 35, width: 35, borderWidth: 0},
-                    imgStyle
-                ]}
-            />
-        </TouchableOpacity>
+        <View style={{ alignItems: 'center', marginBottom:20}}>
+            <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
+
+                <Feather  name="camera" size={30} style={{}} />
+           </TouchableOpacity>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     image:{
         borderRadius:75,
-        width:50,
-        height:50,
-        borderWidth:5,
-        borderColor:Colors.STROKE_COLOR
+        width:120,
+        height:120,
     }
 });
+
+export default ImagePicer;

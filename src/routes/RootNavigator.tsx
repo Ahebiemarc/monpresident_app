@@ -8,6 +8,7 @@ import TabNavigator from "./TabNavigator";
 import { View } from "react-native";
 import PresidentInfo from "../screens/PresidentInfo";
 import PresidentAbout from "../screens/PresidentAbout";
+import CameraFace from "../screens/CameraFace";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -28,6 +29,7 @@ const RootNavigator = () => {
                 <RootStack.Screen name="Tab" component={TabNavigator} />
                 <RootStack.Screen name="PresidentInfo" component={PresidentInfo}/>
                 <RootStack.Screen name='PresidentAbout' component={PresidentAbout} />
+                <RootStack.Screen name='CameraFace' component={CameraFace} />
             </RootStack.Group>
         </RootStack.Navigator>
         </View>

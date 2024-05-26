@@ -6,7 +6,6 @@ import Profile from "../screens/tabs/Profile";
 import About from "../screens/tabs/About";
 import Settings from "../screens/tabs/Settings";
 import CustomBottomTab from "../components/bottomTabs/CustomBottomTab";
-import CameraFace from "../screens/CameraFace";
 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +31,7 @@ const TabNavigator = () => {
             <Tab.Screen
                 options={{tabBarLabel: 'Options'}}
                 name="Settings"  
-                component={CameraFace}  
+                component={Settings}  
             />
             <Tab.Screen
                 options={{tabBarLabel: 'a propos'}}

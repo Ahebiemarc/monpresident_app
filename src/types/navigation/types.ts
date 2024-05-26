@@ -12,7 +12,7 @@ export type RootStackParamList = {
   Splash: undefined
   Onboarding: undefined;
   Login: undefined;
-  Signup: {photo?: PhotoFile};
+  Signup: {photo: PhotoFile | undefined};
   PresidentInfo: {item: IPresident};
   PresidentAbout: { item: IPresident};
   CameraFace: {photo?: string};

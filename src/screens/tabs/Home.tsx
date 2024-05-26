@@ -7,8 +7,9 @@ import { Colors } from "../../constants/colors/Colors";
 import { truncateString } from "../../utils/functionString";
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import BackdropImage from "../../components/BackDropImage";
-import { RootStackScreenProps } from "../../types/navigation/types";
+import { RootStackParamList, RootStackScreenProps } from "../../types/navigation/types";
 import Animated from "react-native-reanimated";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 
 
@@ -22,9 +23,9 @@ export const BACKDROP_HEIGHT = SCREEN_HEIGHT * 0.65;
 
 const CANDIDATES = [{id: 'left-spacer'}, ...President_DATA, {id: 'right-spacer'}];
 
+type Props = NativeStackScreenProps<RootStackParamList>;
 
-
-const Home: FC<RootStackScreenProps<'Tab'>> = ({navigation}) => {
+const Home: FC<Props> = ({navigation}) => {
 
 
     const scrollX:RNAnimated.Value = useRef(new RNAnimated.Value(0)).current

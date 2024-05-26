@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
 import { SCREEN_WIDTH } from "@gorhom/bottom-sheet";
 import { Colors } from "../../constants/colors/Colors";
+import ImagePicer from "../../components/signupInputs/ImagePicker";
 
 
 const Settings = () => {
@@ -9,25 +10,16 @@ const Settings = () => {
     //const [data, setData] = useState({})
     return (
         <View style={styles.container} >
-            
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
+        flex: 1,
         justifyContent: "center",
-        borderRadius: 25,
-        backgroundColor: '#6468e7',
-        height: 100,
-        width: SCREEN_WIDTH ,
-        paddingHorizontal:  10,
-        marginHorizontal: 10,
+        alignItems: "center",
+        //backgroundColor: "#F5FCFF",
     },
  
       text: {

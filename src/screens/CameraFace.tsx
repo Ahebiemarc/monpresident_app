@@ -15,7 +15,7 @@ const  CameraFace: FC<RootStackScreenProps<'CameraFace'>>= ({navigation}) => {
     const appState = useAppState()
     const isActive = isFocused && appState === "active"
     const camera = useRef<Camera>(null);
-    //const [picture, setPicture] = useState<PhotoFile>();
+    const [picture, setPicture] = useState<PhotoFile>();
   
     
     useEffect(() => {
@@ -24,6 +24,8 @@ const  CameraFace: FC<RootStackScreenProps<'CameraFace'>>= ({navigation}) => {
         requestPermission();
       }
     }, [hasPermission])
+
+
 
     if (!hasPermission) {
       return <ActivityIndicator />;
@@ -35,9 +37,11 @@ const  CameraFace: FC<RootStackScreenProps<'CameraFace'>>= ({navigation}) => {
 
     const takePhoto = async () => {
       const photo = await camera.current?.takePhoto();
-      //setPicture(photo);
-      //navigation.replace('Signup', {photo: picture});
-      console.log(photo);
+      setPicture(photo);
+      navigation.replace('Signup', {photo});
+
+      
+      //console.log(photo);
     };
     
     
@@ -64,7 +68,7 @@ const  CameraFace: FC<RootStackScreenProps<'CameraFace'>>= ({navigation}) => {
     captureBtn:{
       position: 'absolute',
       alignSelf: 'center',
-      bottom: 150,
+      bottom: 50,
       width: 75,
       height: 75,
       backgroundColor: Colors.white,
