@@ -1,11 +1,17 @@
 import { useAppState } from "@react-native-community/hooks";
 import { useIsFocused } from "@react-navigation/native";
 import React, { FC, useEffect, useRef, useState } from "react";
-import { ActivityIndicator, Pressable, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Alert, Pressable, Text, TouchableOpacity, View } from "react-native";
 import { StyleSheet } from "react-native";
 import { Camera, PhotoFile, useCameraDevice, useCameraPermission } from "react-native-vision-camera";
 import { Colors } from "../constants/colors/Colors";
 import { RootStackScreenProps } from "../types/navigation/types";
+import { authenticateByFace } from "../api/elector";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
+// Fonction pour convertir PhotoFile en File
+
 
 
 const  CameraFace: FC<RootStackScreenProps<'CameraFace'>>= ({navigation}) => {
@@ -16,11 +22,13 @@ const  CameraFace: FC<RootStackScreenProps<'CameraFace'>>= ({navigation}) => {
     const isActive = isFocused && appState === "active"
     const camera = useRef<Camera>(null);
     const [picture, setPicture] = useState<PhotoFile>();
+    const [loading, setLoading] = useState<boolean>(false);
+
   
     
     useEffect(() => {
       if (!hasPermission) {
-        console.log("permission : ", hasPermission);
+        //console.log("permission : ", hasPermission);
         requestPermission();
       }
     }, [hasPermission])
@@ -36,13 +44,35 @@ const  CameraFace: FC<RootStackScreenProps<'CameraFace'>>= ({navigation}) => {
     }
 
     const takePhoto = async () => {
-      const photo = await camera.current?.takePhoto();
-      setPicture(photo);
-      navigation.replace('Signup', {photo});
+      if (!hasPermission) {
+          Alert.alert('Permission Denied', 'Please grant camera permission to continue.');
+          return;
+      }
 
-      
-      //console.log(photo);
-    };
+      const photo = await camera.current?.takePhoto();
+
+      const token = await AsyncStorage.getItem('token');
+      if(!token) return;
+
+      if (photo) {
+          try {
+              setLoading(true);
+
+              const response = await authenticateByFace(photo as unknown as File, token); // Appel de la fonction Axios pour l'authentification par photo
+              Alert.alert('Success', response.message);
+              // Naviguer vers l'écran suivant si nécessaire
+              setLoading(false);
+
+          } catch (error) {
+              Alert.alert('Error', 'Failed to authenticate by face');
+              console.log(error);
+              
+              setLoading(false);
+
+          }
+      }
+  };
+
     
     
     

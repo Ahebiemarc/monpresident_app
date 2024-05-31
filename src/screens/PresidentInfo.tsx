@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Alert } from "react-native";
 import { RootStackScreenProps } from "../types/navigation/types";
 import Feather from "react-native-vector-icons/Feather"
 import { Colors } from "../constants/colors/Colors";
@@ -11,6 +11,9 @@ import BottomBlue from "../components/bottomBlue";
 import * as Animatable from "react-native-animatable";
 import Animated, { FadeInUp } from "react-native-reanimated";
 import ButtonVoteMe from "../components/ButtonVoteMe";
+import { IMG_URL } from "../api/constant";
+import { toVote } from "../api/elector";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const SPACING:number = 10;
@@ -23,6 +26,26 @@ const TOP_HEADER_HEIGHT:number = SCREEN_HEIGHT * 0.3
 const PresidentInfo = ({route, navigation} : RootStackScreenProps<'PresidentInfo'>) => {
 
     const { item } = route.params;
+    console.log(item.candidateId);
+
+    const handleSubmitToVote = async () =>{
+
+        try {
+            const token = await AsyncStorage.getItem('token');
+            if(!token) return;
+            const result = await toVote(item.candidateId, token);
+            if(result.message){
+                Alert.alert('Success', result.message);
+            }
+            
+        } catch (error: any) {
+            console.log(error);
+            
+            Alert.alert('error', error.error)
+        }
+
+    }
+    
      
     return (
         <View style={styles.container}>
@@ -47,7 +70,7 @@ const PresidentInfo = ({route, navigation} : RootStackScreenProps<'PresidentInfo
                 ]}
             />
                 <Animated.Image sharedTransitionTag={`item.${item.id}.image`}  entering={FadeInUp.duration(1000)}
-                source={item.image} style={styles.posterImage} />
+                source={{uri: `${IMG_URL}/${item.image}`}} style={styles.posterImage} />
                
                 <Animated.Text sharedTransitionTag={`item.${item.id}.name`} style={styles.posterName}>{`${item.firstname} ${item.lastname}`} </Animated.Text>
 
@@ -64,7 +87,7 @@ const PresidentInfo = ({route, navigation} : RootStackScreenProps<'PresidentInfo
                                 duration={1000}
                                 style={styles.matchContainer} 
                             >
-                                <MatchPercent percent={item.matchPercent} />
+                                <MatchPercent percent={item.matchPercent!!} />
                             </Animatable.View>
                             
                                 <Animatable.Text
@@ -78,8 +101,7 @@ const PresidentInfo = ({route, navigation} : RootStackScreenProps<'PresidentInfo
                         </ScrollView>
                 </Animated.View>
             <View style={{position: 'absolute', right: 30, top: TOP_HEADER_HEIGHT - ITEM_SIZE * 0.1 + 50, zIndex:1}}>
-                <ButtonVoteMe onPress={() => console.log('ok')
-                } />
+                <ButtonVoteMe onPress={handleSubmitToVote} />
             </View>
             
                 {/*<CustomBottomSheet ref={bottomSheetRef}>

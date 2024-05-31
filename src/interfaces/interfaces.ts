@@ -46,6 +46,7 @@ export interface IExperience {
 }
 
 export interface IPresident {
+    cin: string;
     id: string;
     firstname: string;
     lastname: string;
@@ -54,13 +55,14 @@ export interface IPresident {
     email: string;
     politicalStatus: 'INDEPENDANT' | 'DEMOCRATE' | 'REPUBLICAIN',
     brefSpeechAndBio: string;
-    matchPercent: number;
+    matchPercent?: number;
     image: ImageProps;
     coveredImage: ImageProps;
     address: string;
     city: string;
     state: string;
     aboutPresident: IPresidentAbout;
+    candidateId: number;
     
 };
 
@@ -75,12 +77,12 @@ export interface IElector{
     cin: string;
     firstname: string;
     lastname: string;
-    birthday: Date;
+    birthdate: Date;
     gender: string;
     email: string;
-    phone: string;
+    phones: string;
     occupation: string;
-    photo: string;
+    image: string;
     address: string;
     city: string;
     country: string;

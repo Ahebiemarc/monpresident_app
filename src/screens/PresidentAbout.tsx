@@ -10,6 +10,7 @@ import BottomBlue from '../components/bottomBlue';
 import BottomSheet from '@gorhom/bottom-sheet';
 import ListItem from '../components/bottomsheet/ListItem';
 import CustomBottomSheet from '../components/bottomsheet/CustomBottomSheet';
+import { IMG_URL } from '../api/constant';
 
 
 const SPACING:number = 10;
@@ -60,7 +61,7 @@ const PresidentAbout = ({route, navigation}: RootStackScreenProps<'PresidentAbou
                     />
                 </TouchableOpacity>
                 <View style={styles.header}>
-                    <Image style={styles.headeImage}  source={item.image}/>
+                    <Image style={styles.headeImage}  source={{uri: `${IMG_URL}/${item.image}`}}/>
                     <View>
                         <Text style={[styles.headerState]}> {item.politicalStatus} </Text>
                         <Text style={styles.headerName}> {`${item.firstname} ${item.lastname}`} </Text>

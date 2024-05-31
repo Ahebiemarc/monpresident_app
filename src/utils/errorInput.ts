@@ -3,13 +3,13 @@ import { IElector } from "../interfaces/interfaces";
 export interface IFormError {
     firstname?: string;
     lastname?: string;
-    birthday?: string;
+    birthdate?: string;
     gender?: string;
     cin?: string;
     email?: string;
-    phone?: string;
+    phones?: string;
     occupation?: string;
-    photo?: string;
+    image?: string;
     address?: string;
     city?: string;
     country?: string;
@@ -28,23 +28,23 @@ export const  validateForm = (formData: IElector, setFormErrors:(errors: IFormEr
     if (!formData.lastname  || formData.lastname.trim().length === 0) {
         errors = {...errors, lastname : "Prénom réquis"}
     }
-    if (!formData.birthday || formData.birthday.toDateString().trim().length === 0) {
-        errors = {...errors, birthday : "Date de naissance réquis"}
+    if (!formData.birthdate || formData.birthdate.toDateString().trim().length === 0) {
+        errors = {...errors, birthdate : "Date de naissance réquis"}
     }
     if (!formData.gender || formData.gender.trim().length === 0) {
         errors = {...errors, gender : "Genre réquis"}
     }
-    if (!formData.phone ||  formData.phone.toString().trim().length === 0) {
-        errors = {...errors, phone : "Numéro réquis"}
+    if (!formData.phones ||  formData.phones.toString().trim().length === 0) {
+        errors = {...errors, phones : "Numéro réquis"}
     }
-    if (formData.phone && formData.phone.toString().trim().length !== 10) {
-        errors = {...errors, phone : "Le numéro de téléphone doit contenir 10 chiffres"}
+    if (formData.phones && formData.phones.toString().trim().length !== 10) {
+        errors = {...errors, phones : "Le numéro de téléphone doit contenir 10 chiffres"}
     }
     if (!formData.occupation || formData.occupation.trim().length === 0) {
         errors = {...errors, occupation : "Occupation réquis"}
     }
-    if (!formData.photo || formData.photo.trim().length === 0) {
-        errors = {...errors, photo : "Photo réquis"}
+    if (!formData.image || formData.image.trim().length === 0) {
+        errors = {...errors, image : "Photo réquis"}
     }
     if (!formData.address || formData.address.trim().length === 0) {
         errors = {...errors, address : "Adresse réquis"}

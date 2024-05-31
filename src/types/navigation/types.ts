@@ -11,11 +11,12 @@ export type RootStackParamList = {
   Tab: NavigatorScreenParams<TabParamList>;
   Splash: undefined
   Onboarding: undefined;
-  Login: undefined;
+  LoginByCin: undefined;
+  //LoginByFace: undefined;
   Signup: {photo: PhotoFile | undefined};
   PresidentInfo: {item: IPresident};
   PresidentAbout: { item: IPresident};
-  CameraFace: {photo?: string};
+  CameraFace: undefined;
 
   
 };

@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Button, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Button, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { IElector } from "../interfaces/interfaces";
 import Input from "../components/signupInputs/Input";
 import { Colors } from "../constants/colors/Colors";
@@ -12,29 +12,30 @@ import Select from "../components/signupInputs/Select";
 import { TextInput } from "react-native";
 import ImagePicer from "../components/signupInputs/ImagePicker";
 import { RootStackScreenProps } from "../types/navigation/types";
+import { createElector } from "../api/elector";
 
 const Signup: React.FC<RootStackScreenProps<'Signup'>> = ({ navigation, route }) => {
     const [formData, setFormData] = useState<IElector>({
-        cin: '',
-        firstname: '',
-        lastname: '',
-        birthday: new Date(),
+        cin: 'CI210009',
+        firstname: 'Duran',
+        lastname: 'Franck',
+        birthdate: new Date(),
         gender: '',
-        email: '',
-        phone: '0779770733',
-        occupation: '',
-        photo: '',
-        address: '',
-        city: '',
-        country: '',
-        religion: '',
+        email: 'duran@gmail.com',
+        phones: '0779770733',
+        occupation: 'Ingénieur IA',
+        image: '',
+        address: 'monastir 4019',
+        city: 'Monastir',
+        country: 'Tunis',
+        religion: 'chrétien',
         relationshipStatus: '',
     });
 
     const { photo } = route.params || {};
     const photoPath = photo?.path ?? '';
     const photoImg = photoPath?.split('/').pop() ?? '';
-    console.log(photoImg);
+    //console.log(photoImg);
 
     const [formErrors, setFormErrors] = useState<IFormError>({});
     const cinRef = useRef<TextInput>(null);
@@ -43,7 +44,7 @@ const Signup: React.FC<RootStackScreenProps<'Signup'>> = ({ navigation, route })
 
     useEffect(() => {
         if (photoPath) {
-            setFormData(prevState => ({ ...prevState, photo: photoImg }));
+            setFormData(prevState => ({ ...prevState, image: photoPath }));
         }
     }, [photoPath]);
 
@@ -55,19 +56,54 @@ const Signup: React.FC<RootStackScreenProps<'Signup'>> = ({ navigation, route })
         }
     }
 
-    const handleSubmit = () => {
-        if (validateForm(formData, setFormErrors)) {
-            console.log(formData);
+    const handleSubmit = async () => {
+        if (!formData.image) {
+            Alert.alert('Erreur', 'Une photo est requise');
+            return;
         }
+
+        const formDataToSend = new FormData();
+        formDataToSend.append('cin', formData.cin);
+        formDataToSend.append('firstname', formData.firstname);
+        formDataToSend.append('lastname', formData.lastname);
+        formDataToSend.append('birthdate', formData.birthdate.toISOString());
+        formDataToSend.append('gender', formData.gender);
+        formDataToSend.append('email', formData.email);
+        formDataToSend.append('phones', formData.phones);
+        formDataToSend.append('occupation', formData.occupation);
+        formDataToSend.append('address', formData.address);
+        formDataToSend.append('city', formData.city);
+        formDataToSend.append('country', formData.country);
+        formDataToSend.append('religion', formData.religion);
+        formDataToSend.append('relationshipStatus', formData.relationshipStatus);
+        formDataToSend.append('image', {
+            uri: formData.image,
+            type: 'image/jpeg',
+            name: 'photo.jpg',
+        });
+
+
+        const response = await createElector(formDataToSend);
+        Alert.alert('Message', response.message);
+        if(response.message === 'Utilisateur créé avec succès; vous aurez la confirmation des autorités'){
+          Alert.alert('Message', response.message);
+          //navigation.navigate('LoginByCin');
+        }else{
+            Alert.alert('Message', response.message);
+        }
+
+
+
+        
     }
 
     const onChange = (event: DateTimePickerEvent, selectedDate: Date | undefined) => {
         if (event.type === 'set') {
-            const currentDate = selectedDate || formData.birthday;
-            setFormData({ ...formData, birthday: currentDate, photo: photoImg });
+            const currentDate = selectedDate || formData.birthdate;
+            setFormData({ ...formData, birthdate: currentDate});
 
             if (Platform.OS === "android") {
-                setFormData({ ...formData, birthday: currentDate });
+                setFormData({ ...formData, birthdate: currentDate });
             }
         }
     };
@@ -79,7 +115,7 @@ const Signup: React.FC<RootStackScreenProps<'Signup'>> = ({ navigation, route })
     }
 
     const takePhoto = () => {
-        navigation.navigate('CameraFace', {});
+        navigation.navigate('CameraFace');
     }
 
     return (
@@ -89,15 +125,15 @@ const Signup: React.FC<RootStackScreenProps<'Signup'>> = ({ navigation, route })
                 <Text style={styles.titleFine}>Entrez vos différents informations</Text>
             </View>
             <ScrollView showsVerticalScrollIndicator contentContainerStyle={{ padding: 20 }}>
-                {}
                 <ImagePicer onPress={takePhoto} />
                 <View style={{ display: 'none' }}>
                     <Input
                         label="photo"
                         placeholder="aaaa.jpg"
-                        value={formData.photo}
-                        onChangeText={(text) => handleInputChange('photo', text)}
-                        errorMessage={formErrors.photo}
+                        
+                        value={formData.image}
+                        onChangeText={(text) => handleInputChange('image', text)}
+                        errorMessage={formErrors.image}
                     />
                 </View>
                 <Input
@@ -127,11 +163,11 @@ const Signup: React.FC<RootStackScreenProps<'Signup'>> = ({ navigation, route })
                 />
                 <DatePicker
                     label="Date de naissance"
-                    date={formData.birthday}
-                    valueText={format(formData.birthday, 'dd/MM/yyyy', { locale: fr })}
-                    onChangeText={(text) => handleInputChange('birthday', text)}
+                    date={formData.birthdate}
+                    valueText={format(formData.birthdate, 'dd/MM/yyyy', { locale: fr })}
+                    onChangeText={(text) => handleInputChange('birthdate', text)}
                     onChange={onChange}
-                    errorMessage={formErrors.birthday}
+                    errorMessage={formErrors.birthdate}
                 />
                 <Select
                     label="Genre"
@@ -153,9 +189,9 @@ const Signup: React.FC<RootStackScreenProps<'Signup'>> = ({ navigation, route })
                 <Input
                     label="Phone"
                     placeholder="0758454590"
-                    value={formData.phone}
-                    onChangeText={(text) => handleInputChange('phone', text)}
-                    errorMessage={formErrors.phone}
+                    value={formData.phones}
+                    onChangeText={(text) => handleInputChange('phones', text)}
+                    errorMessage={formErrors.phones}
                 />
                 <Input
                     label="Occupation"

@@ -6,7 +6,7 @@ import { Image, ImageProps } from "react-native"
 import LinearGradient from "react-native-linear-gradient"
 
 type BackgroundProfileProps = {
-    user_profile_cover: ImageProps
+    user_profile_cover: string
 }
 
 const BackgroundProfile = ({user_profile_cover}:  BackgroundProfileProps) : React.JSX.Element => {
@@ -26,7 +26,7 @@ const BackgroundProfile = ({user_profile_cover}:  BackgroundProfileProps) : Reac
                 }}
             >
             <Image
-                source={user_profile_cover}
+                source={{uri: user_profile_cover}}
                 style={{
                 width:SCREEN_WIDTH,
                 height: BACKDROP_HEIGHT,

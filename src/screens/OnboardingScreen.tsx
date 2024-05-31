@@ -67,7 +67,8 @@ const OnboardingScreen = ({navigation}: RootStackScreenProps<'Onboarding'>): Rea
                 paddingH={20}
                 paddingV={19}
                 left={-20}
-                onPress={() => navigation.replace('Tab', {screen: 'Home'})}
+                //onPress={() => navigation.replace('Tab', {screen: 'Home'})}
+                onPress={() => navigation.navigate('LoginByCin')}
                 />
                  <Button 
                 title="S'inscrire" 
