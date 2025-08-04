@@ -15,6 +15,7 @@ in this repository (folder monpresident_app) :
 
 
 
+<img width="389" height="888" alt="Capture d'écran 2024-03-22 155731" src="https://github.com/user-attachments/assets/2dc4ae8d-c87a-46e5-b44d-ed15550bf498" />
 
 <img width="388" height="894" alt="Image" src="https://github.com/user-attachments/assets/3052cd8c-405d-4615-bec6-e59262b3806a" />
 
