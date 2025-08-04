@@ -15,7 +15,6 @@ in this repository (folder monpresident_app) :
 
 
 
-<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/445ad1e8-d948-4572-873a-34a1b362b9ba" />
 
 <img width="388" height="894" alt="Image" src="https://github.com/user-attachments/assets/3052cd8c-405d-4615-bec6-e59262b3806a" />
 
