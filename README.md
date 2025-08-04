@@ -7,8 +7,10 @@ in folder president-smart-contrat :
           npm run start
           npm run deploy
 
+in server api folder:
+   run server : npm run start.
 
 in this repository (folder monpresident_app) :
-     run :
+     run : npm run start
            
 
